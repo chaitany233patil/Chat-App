@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer utilities {
+  @keyframes move-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(-20%);
+    }
+  }
+
+  .animate-move-up {
+    animation: move-up 0.5s ease-in-out forwards;
+  }
+}
