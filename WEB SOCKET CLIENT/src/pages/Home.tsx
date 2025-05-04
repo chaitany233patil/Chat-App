@@ -1,6 +1,7 @@
 import { ChatIcon } from "../icons/ChatIcon";
 
 export const Home = (props) => {
+  // const [bot, setBot] = useState<boolean>(false);
   return (
     <div className="w-screen h-screen bg-black pt-20 flex font-mono">
       <div className="m-auto p-6 border w-150 rounded border-zinc-800 flex justify-center flex-col">

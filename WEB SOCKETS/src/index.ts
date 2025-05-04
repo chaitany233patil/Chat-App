@@ -48,6 +48,20 @@ wss.on("connection", (socket) => {
         }
       }
 
+      if (parseData.type == "typing") {
+        const roomId = parseData.payload.roomId;
+        if (roomId in allSockets) {
+          allSockets[roomId].forEach((socket) => {
+            socket.send(
+              JSON.stringify({
+                type: "Typing",
+                username: parseData.payload.username,
+              })
+            );
+          });
+        }
+      }
+
       if (parseData.type == "chat") {
         const roomId = parseData.payload.roomId;
         if (roomId in allSockets) {

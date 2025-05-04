@@ -6,7 +6,7 @@ export const Chat = (props: any) => {
 
   useEffect(() => {
     autoScroll();
-  }, [props]);
+  }, [props.isTyping.status]);
 
   const autoScroll = () => {
     if (scrollRef.current) {
@@ -35,20 +35,33 @@ export const Chat = (props: any) => {
             {props.messages.map(
               (message: { username: string; message: string }) => {
                 return (
-                  <p
-                    className={`p-2 rounded-lg m-2 flex flex-col max-w-95 ${
-                      message.username == localStorage.getItem("username")
-                        ? "self-end bg-blue-500"
-                        : "self-start bg-gray-500"
-                    } text-white translate-y-[10px] animate-move-up`}
-                  >
-                    {" "}
-                    <i className="text-sm text-gray-950">{message.username}</i>
-                    <span>{message.message}</span>
-                  </p>
+                  <>
+                    <p
+                      className={`p-2 rounded-lg m-2 flex flex-col max-w-95 ${
+                        message.username == localStorage.getItem("username")
+                          ? "self-end bg-blue-500"
+                          : "self-start bg-gray-500"
+                      } text-white translate-y-[10px] animate-move-up`}
+                    >
+                      {" "}
+                      <i className="text-sm text-gray-950">
+                        {message.username}
+                      </i>
+                      <span>{message.message}</span>
+                    </p>
+                  </>
                 );
               }
             )}
+            {props.isTyping.status &&
+              props.isTyping.username !== localStorage.getItem("username") && (
+                <p className="p-2 rounded-lg m-2 flex flex-col max-w-95 text-white self-start bg-gray-500">
+                  <i className="text-sm text-gray-950">
+                    {props.isTyping.username}
+                  </i>
+                  Typing...
+                </p>
+              )}
           </div>
           <div className="mt-4 gap-4 flex w-full">
             <input
@@ -56,6 +69,7 @@ export const Chat = (props: any) => {
               className="text-gray-400 w-full border p-2.5 text-xl"
               type="text"
               placeholder="Enter message"
+              onChange={props.Typing}
             />
             <button
               onClick={() => {
