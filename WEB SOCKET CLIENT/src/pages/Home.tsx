@@ -1,7 +1,16 @@
 import { ChatIcon } from "../icons/ChatIcon";
+import React from "react";
 
-export const Home = (props) => {
-  // const [bot, setBot] = useState<boolean>(false);
+interface HomeProps {
+  createRoom: () => void;
+  joinRoom: () => void;
+  reference: React.Ref<HTMLInputElement>;
+  usernameRef: React.Ref<HTMLInputElement>;
+  roomId: string;
+  roomStatus: boolean;
+}
+
+export const Home = (props: HomeProps) => {
   return (
     <div className="w-screen h-screen bg-black pt-20 flex font-mono">
       <div className="m-auto p-6 border w-150 rounded border-zinc-800 flex justify-center flex-col">

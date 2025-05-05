@@ -6,12 +6,12 @@ import { WS_BACKEND } from "../config";
 
 function App() {
   const [chat, setChat] = useState(false);
-  const wsRef = useRef<any>(null);
+  const wsRef = useRef<WebSocket>(null);
   const joinRoomId = useRef<HTMLInputElement>(null);
   const username = useRef<HTMLInputElement>(null);
   const [roomId, setRoomId] = useState("");
   const [roomStatus, setRoomStatus] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<string[]>([]);
   const chatMessage = useRef<HTMLInputElement>(null);
   const [typingStatus, setTypingStatus] = useState({
     status: false,
@@ -19,7 +19,7 @@ function App() {
   });
 
   function createRoom() {
-    wsRef.current.send(
+    wsRef.current?.send(
       JSON.stringify({
         type: "create",
         payload: {
@@ -31,10 +31,11 @@ function App() {
   }
 
   function joinRoom() {
-    localStorage.setItem("roomId", joinRoomId.current?.value);
+    if (!joinRoomId.current || !username.current) return;
+    localStorage.setItem("roomId", joinRoomId.current.value);
     localStorage.setItem("username", username.current?.value);
     if (!joinRoomId.current?.value || !username.current?.value) return;
-    wsRef.current.send(
+    wsRef.current?.send(
       JSON.stringify({
         type: "join",
         payload: {
@@ -46,7 +47,7 @@ function App() {
 
   function sendChat() {
     if (!chatMessage.current?.value) return;
-    wsRef.current.send(
+    wsRef.current?.send(
       JSON.stringify({
         type: "chat",
         payload: {
@@ -60,7 +61,7 @@ function App() {
   }
 
   function Typing() {
-    wsRef.current.send(
+    wsRef.current?.send(
       JSON.stringify({
         type: "typing",
         payload: {
