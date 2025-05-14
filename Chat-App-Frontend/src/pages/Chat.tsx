@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ChatIcon } from "../icons/ChatIcon";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Chat = (props: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
