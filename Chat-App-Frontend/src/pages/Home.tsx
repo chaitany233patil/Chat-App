@@ -12,7 +12,7 @@ interface HomeProps {
 
 export const Home = (props: HomeProps) => {
   return (
-    <div className="w-screen h-screen bg-black pt-20 flex font-mono">
+    <div className="w-screen h-screen bg-black pt-20 flex font-mono px-3">
       <div className="m-auto p-6 border w-150 rounded border-zinc-800 flex justify-center flex-col">
         <div className="text-gray-50 flex items-center text-4xl gap-3">
           <ChatIcon size={"size-10"} />
@@ -29,7 +29,7 @@ export const Home = (props: HomeProps) => {
             Create Room
           </button>
         </div>
-        <div className="flex justify-center items-center mt-4 gap-4">
+        <div className="flex flex-col md:flex-row mt-4 gap-4">
           <input
             ref={props.usernameRef}
             className="text-gray-400 w-full border p-2.5 text-xl"
