@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { Chat } from "./pages/Chat";
-import { Home } from "./pages/Home";
+import { Chat } from "./Components/Chat";
+import { Home } from "./Components/Home";
 import { WS_BACKEND } from "../config";
 
 function App() {
@@ -13,12 +13,14 @@ function App() {
   const [roomStatus, setRoomStatus] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
   const chatMessage = useRef<HTMLInputElement>(null);
+  const [roomLoading, setRoomLoading] = useState<boolean>(false);
   const [typingStatus, setTypingStatus] = useState({
     status: false,
     username: "none",
   });
 
-  function createRoom() {
+  async function createRoom() {
+    setRoomStatus(true);
     wsRef.current?.send(
       JSON.stringify({
         type: "create",
@@ -27,7 +29,6 @@ function App() {
         },
       })
     );
-    setRoomStatus(true);
   }
 
   function joinRoom() {
@@ -82,6 +83,7 @@ function App() {
     ws.onmessage = (e) => {
       const parseData = JSON.parse(e.data);
       if (parseData.type == "create") {
+        setRoomLoading(true);
         setRoomId(parseData.payload.roomId);
         localStorage.setItem("roomId", parseData.payload.roomId);
       }
@@ -130,6 +132,7 @@ function App() {
         />
       ) : (
         <Home
+          roomLoading={roomLoading}
           createRoom={createRoom}
           joinRoom={joinRoom}
           reference={joinRoomId}

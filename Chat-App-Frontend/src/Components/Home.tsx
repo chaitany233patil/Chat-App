@@ -1,5 +1,6 @@
 import { ChatIcon } from "../icons/ChatIcon";
 import React from "react";
+import { Loading } from "./Loading";
 
 interface HomeProps {
   createRoom: () => void;
@@ -8,6 +9,7 @@ interface HomeProps {
   usernameRef: React.Ref<HTMLInputElement>;
   roomId: string;
   roomStatus: boolean;
+  roomLoading: boolean;
 }
 
 export const Home = (props: HomeProps) => {
@@ -53,7 +55,11 @@ export const Home = (props: HomeProps) => {
         {props.roomStatus && (
           <div className="bg-gray-200 mt-4 flex flex-col items-center py-2">
             <div className="text-xl font-bold">Room Id</div>
-            <div className="text-2xl font-bold">{props.roomId}</div>
+            {props.roomLoading ? (
+              <div className="text-2xl font-bold">{props.roomId}</div>
+            ) : (
+              <Loading />
+            )}
           </div>
         )}
       </div>
