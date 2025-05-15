@@ -1,1 +1,1 @@
-export const WS_BACKEND = "https://chat-app-2-8bm0.onrender.com";
+export const WS_BACKEND = "wss://chat-app-backend-production-cefd.up.railway.app";
